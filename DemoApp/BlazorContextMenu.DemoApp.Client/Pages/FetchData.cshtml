@@ -46,7 +46,12 @@ else
 
     protected override async Task OnInitAsync()
     {
-        forecasts = (await Http.GetJsonAsync<WeatherForecast[]>("/sample-data/weather.json")).ToList();
+        await LoadForecasts();
+    }
+
+    private async Task LoadForecasts()
+    {
+        forecasts = (await Http.GetJsonAsync<WeatherForecast[]>("/api/SampleData/WeatherForecasts")).ToList();
     }
 
     class WeatherForecast
@@ -59,7 +64,7 @@ else
 
     async Task ReloadClick(MenuItemClickEventArgs e)
     {
-        forecasts = (await Http.GetJsonAsync<WeatherForecast[]>("/sample-data/weather.json")).ToList();
+        await LoadForecasts();
         StateHasChanged();
     }
 
